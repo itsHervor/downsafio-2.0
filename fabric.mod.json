@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "downsafio_menu",
+  "version": "${version}",
+  "name": "Downsafio Menu",
+  "description": "Menu para lanzar las ruletas de Downsafio con una tecla (solo cliente).",
+  "authors": ["Downsafio"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": { "client": ["com.downsafio.menu.DownsafioMenuClient"] },
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
