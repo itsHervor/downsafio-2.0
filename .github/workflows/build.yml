@@ -7,6 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Descomprimir el proyecto
+        run: |
+          mkdir -p proyecto
+          unzip -o proyecto.zip -d proyecto
+          ls -R proyecto | head -40
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -14,8 +19,14 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.8
-      - run: gradle build --no-daemon
+      - name: Compilar
+        working-directory: proyecto
+        run: gradle build --no-daemon
+      - name: Verificar que el jar no este vacio
+        run: |
+          ls -l proyecto/build/libs
+          test $(stat -c%s proyecto/build/libs/downsafio-menu-1.3.0.jar) -gt 100000
       - uses: actions/upload-artifact@v4
         with:
           name: downsafio-menu-mod
-          path: build/libs/*.jar
+          path: proyecto/build/libs/downsafio-menu-1.3.0.jar
